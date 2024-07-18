@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import name
 import newTab
+import os
 
 class TestTest2():
     def __init__(self, driver,MeetingURL):
@@ -25,68 +26,54 @@ class TestTest2():
     
     def test_test2(self):
         try:
-
-            '''
-            ------------------------------------------------------------------------------------
-            
-            Start from here, code can be used from Chrome extension, SeleniumIDE.
-
-            ------------------------------------------------------------------------------------
-            '''
-            # 1 | open | websiteURL in a new Chrome | 
+            # 1 | open | https://develop.blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2685 | 
             self.driver.get(self.MeetingURL)
-            time.sleep(1)
-            # 2 | setWindowSize | 1620x1010 (can be chanted) | 
+            time.sleep(10)
+            # 2 | setWindowSize | 1620x1010 | 
             self.driver.set_window_size(1620, 1010)
-            time.sleep(1)
+            time.sleep(10)
             # 3 | click | id=btnToSignin | 
             self.driver.find_element(By.ID, "btnToSignin").click()
-            time.sleep(1)
+            time.sleep(10)
             # time.sleep(5)
             # 4 | click | id=select2-ddlUnit-container | 
             self.driver.find_element(By.ID, "select2-ddlUnit-container").click()
-            time.sleep(1)
+            time.sleep(10)
             # 5 | click | css=.select2-search__field | 
             # 6 | type | css=.select2-search__field | 100
             self.driver.find_element(By.CSS_SELECTOR, ".select2-search__field").send_keys(name.select_random_number())
-            time.sleep(1)
+            time.sleep(10)
             # 7 | sendKeys | css=.select2-search__field | ${KEY_ENTER}
             self.driver.find_element(By.CSS_SELECTOR, ".select2-search__field").send_keys(Keys.ENTER)
-            time.sleep(20)
+            time.sleep(10)
             # 8 | click | id=btnPE1 | 
             self.driver.find_element(By.ID, "btnPE1").click()
-            time.sleep(20)
+            time.sleep(10)
             # 9 | click | id=txtVerCode | 
             self.driver.find_element(By.ID, "txtVerCode").click()
-            time.sleep(20)
+            time.sleep(10)
             # 10 | type | id=txtVerCode | 112233
             self.driver.find_element(By.ID, "txtVerCode").send_keys("112233")
-            time.sleep(20)
+            time.sleep(10)
             # 11 | click | id=btnP1 | 
             self.driver.find_element(By.ID, "btnP1").click()
-            time.sleep(20)
+            time.sleep(10)
             # 12 | click | css=.btn_SinedInNormal | 
             self.driver.find_element(By.CSS_SELECTOR, ".btn_SinedInNormal").click()
             time.sleep(10)
             
-            '''
-            End of Code Copy from SeleniumIDE.
-            ---------------------------------------------------------------------------------------
-            '''
+            # # Initialize the BrowserAutomation with the driver and meeting URL
+            # automation = newTab.BrowserAutomation(self.driver, self.MeetingURL)
+
+            # # Open 5 new tabs
+            # automation.open_new_tabs(9)
 
 
-            # Initialize the BrowserAutomation with the driver and meeting URL
-            """Open New Tabs"""
-            automation = newTab.BrowserAutomation(self.driver, self.MeetingURL)
-
-            # Open 5 new tabs
-            automation.open_new_tabs(9)
-            """End of Opening New Tabs"""
-
-            # Wait for 15 min
             time.sleep(900)
 
                 
         except Exception as e:
+            print("------------------------------------------------------------------")
             print(f"Exception occurred: {str(e)}")
+            print("------------------------------------------------------------------")
             raise e

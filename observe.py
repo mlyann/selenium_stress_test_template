@@ -7,7 +7,7 @@ def main(MeetingURL):
     Here I add the loop for wget
     ------------------------------------------------------------------------------
     """
-    for i in range(1):
+    for i in range(100):
         start = time.time()
         filename = f"/Users/ming/Desktop/blackstone-load-testing-script/MeetingStatusReport_{i}.aspx"
         os.system(f'wget {MeetingURL} -O {filename}')
@@ -15,6 +15,7 @@ def main(MeetingURL):
         os.system(f"rm {filename}")
         delta = end-start
         if delta > 10:
+            print(f"Download {i}: {end-start} seconds")
             break
         else:
             print(f"Download {i}: {end-start} seconds")

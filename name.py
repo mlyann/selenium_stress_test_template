@@ -2,8 +2,6 @@ import random
 # Example usage
 
 def select_random_number():
-    
-    # Simulate Random Numbers to Login.
     numbers = [
         235.01, 236, 236.1, 236.11, 237, 238, 239, 239.01, 23959, 240, 241, 242, 242.1, 243, 244, 
         244.11, 246.01, 247.01, 248.01, 249, 250, 250.1, 251.1, 252, 252.1, 253, 254, 255.01, 256, 

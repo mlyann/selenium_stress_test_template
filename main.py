@@ -2,14 +2,14 @@ import threading
 from selenium import webdriver
 from test import TestTest2  # Assuming your test class is defined in test_script.py
 import concurrent.futures
+import os
 
-URL = "Enter Your Target URL"
+MeetingURL = "https://develop.blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2696"
 
 def run_test(instance_num):
-
     # Instantiate WebDriver for each thread
     driver = webdriver.Chrome()
-    test_instance = TestTest2(driver,URL)
+    test_instance = TestTest2(driver,MeetingURL)
     try:
         test_instance.test_test2()
     finally:

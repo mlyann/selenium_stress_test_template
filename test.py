@@ -25,10 +25,18 @@ class TestTest2():
     
     def test_test2(self):
         try:
-            # 1 | open | https://develop.blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2685 | 
+
+            '''
+            ------------------------------------------------------------------------------------
+            
+            Start from here, code can be used from Chrome extension, SeleniumIDE.
+
+            ------------------------------------------------------------------------------------
+            '''
+            # 1 | open | websiteURL in a new Chrome | 
             self.driver.get(self.MeetingURL)
             time.sleep(1)
-            # 2 | setWindowSize | 1620x1010 | 
+            # 2 | setWindowSize | 1620x1010 (can be chanted) | 
             self.driver.set_window_size(1620, 1010)
             time.sleep(1)
             # 3 | click | id=btnToSignin | 
@@ -61,12 +69,21 @@ class TestTest2():
             self.driver.find_element(By.CSS_SELECTOR, ".btn_SinedInNormal").click()
             time.sleep(10)
             
+            '''
+            End of Code Copy from SeleniumIDE.
+            ---------------------------------------------------------------------------------------
+            '''
+
+
             # Initialize the BrowserAutomation with the driver and meeting URL
+            """Open New Tabs"""
             automation = newTab.BrowserAutomation(self.driver, self.MeetingURL)
 
             # Open 5 new tabs
             automation.open_new_tabs(9)
+            """End of Opening New Tabs"""
 
+            # Wait for 15 min
             time.sleep(900)
 
                 

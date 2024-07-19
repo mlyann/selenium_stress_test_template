@@ -1,93 +1,98 @@
-# Blackstone-Load-Testing-Script
+# Selenium Load Testing Project
 
+This project demonstrates the use of Selenium WebDriver for automated browser testing and concurrent execution using threading in Python. The script performs load testing by opening multiple browser instances and interacting with a web application. 
 
+## Table of Contents
 
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.coretechs.com/blackstone/blackstone-load-testing-script.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.coretechs.com/blackstone/blackstone-load-testing-script/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- [Selenium Load Testing Project](#selenium-load-testing-project)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Running the Load Test](#running-the-load-test)
+  - [Selecting a Random Number](#selecting-a-random-number)
+  - [Running the Wget URL Test](#running-the-wget-url-test)
+  - [Browser Automation](#browser-automation)
+  - [Project Structure](#project-structure)
+  - [Contribution (Thank you!)](#contribution-thank-you)
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+
+1. Clone the repository:
+
+```bash
+git clone https://gitlab.coretechs.com/blackstone/blackstone-load-testing-script.git
+cd blackstone-load-testing-script
+```
+
+2. Create a virtual environment and activate it:
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+```
+
+3. Install the required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Download the ChromeDriver and place it in a directory included in your system's PATH.
+
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Running the Load Test
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+To run the load test with multiple instances:
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+```bash
+python main.py
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+The num_instances variable in main_script.py determines the number of concurrent browser instances to run. You can adjust it as needed.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
 
-## License
-For open source projects, say how it is licensed.
+## Selecting a Random Number
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+The script `random_number.py` contains a function to select a random number from a predefined list. You can use this function as needed in your tests.
+
+## Running the Wget URL Test
+
+The script `wget_test.py` demonstrates how to use `wget` to download files and measure the download time. To run it:
+
+```bash
+python wget_test.py
+```
+
+## Browser Automation
+
+The `BrowserAutomation` class in `browser_automation.py` provides functionality to open multiple tabs in the browser and navigate to a specified URL. You can initialize this class and use its methods in your tests.
+
+
+
+## Project Structure
+
+* selenium-load-testing/
+* ├── main_script.py            # Main script to run the load test
+* ├── random_number.py          # Script to select a random number
+* ├── wget_test.py              # Script to perform wget URL test
+* ├── browser_automation.py     # Browser automation class
+* ├── test_script.py            # Test class with Selenium tests
+* ├── requirements.txt          # Project dependencies
+* └── README.md                 # Project README file
+
+* `main_script.py`: Contains the main function to run multiple instances of Selenium tests concurrently.
+* `random_number.py`: Provides a function to select a random number from a predefined list.
+* `wget_test.py`: Demonstrates downloading files using `wget` and measuring the time taken.
+* `browser_automation.py`: Defines the `BrowserAutomation` class for browser operations.
+* `test_script.py`: Contains the `TestTest2` class which performs the Selenium tests.
+* `requirements.txt`: Lists the Python packages required for the project.
+* `README.md`: This README file.
+
+
+
+## Contribution (Thank you!)
+Ming and Gavin under James, Jawad and Susan's instruction.
+Special thanks to James and Jawad and Susan.

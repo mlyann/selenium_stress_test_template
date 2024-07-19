@@ -1,10 +1,11 @@
 import threading
 from selenium import webdriver
-from test import TestTest2  # Assuming your test class is defined in test_script.py
+from test_script import TestTest2  # Assuming your test class is defined in test_script.py
 import concurrent.futures
 import os
+import time
 
-MeetingURL = "https://develop.blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2696"
+MeetingURL = "https://develop.blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2698"
 
 def run_test(instance_num):
     # Instantiate WebDriver for each thread
@@ -17,10 +18,12 @@ def run_test(instance_num):
         driver.quit()
         print(f"Instance {instance_num} finished.")
 
-def main(num_instances):
+def main(num_instances, interval = 20):
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_instances) as executor:
-        executor.map(run_test, range(num_instances))
+        for instance_num in range(num_instances):
+            executor.submit(run_test, instance_num)
+            time.sleep(interval)  # Wait for `interval` seconds before starting the next instance
 
 if __name__ == "__main__":
-    num_instances = 10  # Number of instances to run concurrently
+    num_instances = 10 # Number of instances to run concurrently
     main(num_instances)

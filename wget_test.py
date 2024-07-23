@@ -2,13 +2,18 @@ import time
 import os
 import numpy as np
 
+MeetingURL = "https://develop.blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2699"
+NUM = 100
+TIME_LINE = 10
+
+
 def wgetURL(MeetingURL, num, loading_time_line):
     """
     ------------------------------------------------------------------------------
     Here I add the loop for wget to observe the website responding time.
     ------------------------------------------------------------------------------
     """
-    tc = np.array([])  # 初始化空的 NumPy 数组
+    tc = np.array([])
     for i in range(num):
         start = time.time()
         filename = f"/Users/ming/Desktop/blackstone-load-testing-script/MeetingStatusReport_{i}.aspx"
@@ -16,7 +21,12 @@ def wgetURL(MeetingURL, num, loading_time_line):
         end = time.time()
         os.system(f"rm {filename}")
         delta = end - start
-        tc = np.append(tc, delta)  # 更新 tc 数组
+        tc = np.append(tc, delta)
+
+        """
+        July 22, Update the Code By time Sleep Five Seconds.
+        """
+        time.sleep(5)
     
     count = np.sum(tc > loading_time_line)
     mean_loading_time = np.mean(tc)
@@ -29,12 +39,9 @@ def wgetURL(MeetingURL, num, loading_time_line):
         f"Mean of Loading Time: {mean_loading_time}\n"
         f"Median of Loading Time: {median_loading_time}\n"
         f"Max of Loading Time: {max_loading_time}\n"
-        f"Max of Loading Time: {min_loading_time}\n"
+        f"Min of Loading Time: {min_loading_time}\n"
     )
 
 if __name__ == "__main__":
-    MeetingURL = "https://blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2855"
-    num = 100
-    loading_time_line = 10
-    wgetURL(MeetingURL, num, loading_time_line)
+    wgetURL(MeetingURL, NUM, TIME_LINE)
 

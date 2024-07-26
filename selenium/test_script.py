@@ -24,6 +24,24 @@ class TestTest2():
         if len(wh_now) > len(wh_then):
             return set(wh_now).difference(set(wh_then)).pop()
     
+    def refresh_tabs(self, refresh_percent):
+        # Get all window handles
+        window_handles = self.driver.window_handles
+        
+        # Calculate how many tabs to refresh
+        num_tabs = len(window_handles)
+        tabs_to_refresh = int(num_tabs * (refresh_percent / 100))
+        
+        # Refresh each window/tab
+        for idx, handle in enumerate(window_handles):
+            self.driver.switch_to.window(handle)
+            self.driver.refresh()
+            
+            # Stop refreshing when reached the desired percentage
+            if idx + 1 >= tabs_to_refresh:
+                break
+    
+    
     def test_test2(self):
         try:
             # 1 | open | https://develop.blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2685 | 
@@ -60,7 +78,7 @@ class TestTest2():
             time.sleep(30)
             # 12 | click | css=.btn_SinedInNormal | 
             self.driver.find_element(By.CSS_SELECTOR, ".btn_SinedInNormal").click()
-            time.sleep(30)
+            time.sleep(60)
             
             # # Initialize the BrowserAutomation with the driver and meeting URL
             # automation = newTab.BrowserAutomation(self.driver, self.MeetingURL)
@@ -68,8 +86,10 @@ class TestTest2():
             # # Open 5 new tabs
             # automation.open_new_tabs(9)
 
+            #Sets the percentage of tabs to refresh after loading to landing page
+            self.refresh_tabs(refresh_percent=0)
 
-            time.sleep(900)
+            time.sleep(1800)
 
                 
         except Exception as e:

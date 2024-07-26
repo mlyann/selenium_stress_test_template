@@ -5,7 +5,7 @@ import concurrent.futures
 import os
 import time
 
-MeetingURL = "https://blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2858"
+MeetingURL = "https://develop.blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2704"
 
 def run_test(instance_num):
     # Instantiate WebDriver for each thread
@@ -25,5 +25,5 @@ def main(num_instances, interval = 12):
             time.sleep(interval)  # Wait for `interval` seconds before starting the next instance
 
 if __name__ == "__main__":
-    num_instances = 25 # Number of instances to run concurrently
+    num_instances = 10 # Number of instances to run concurrently
     main(num_instances)

@@ -66,15 +66,16 @@ The `BrowserAutomation` class in `browser_automation.py` provides functionality 
 
 ## Project Structure
 
-* selenium-load-testing/
-* ├── main_script.py            # Main script to run the load test
-* ├── random_number.py          # Script to select a random number
-* ├── wget_test.py              # Script to perform wget URL test
-* ├── browser_automation.py     # Browser automation class
-* ├── test_script.py            # Test class with Selenium tests
-* ├── requirements.txt          # Project dependencies
-* └── README.md                 # Project README file
-
+```
+selenium-load-testing/
+├── main_script.py            # Main script to run the load test
+├── random_number.py          # Script to select a random number
+├── wget_test.py              # Script to perform wget URL test
+├── browser_automation.py     # Browser automation class
+├── test_script.py            # Test class with Selenium tests
+├── requirements.txt          # Project dependencies
+└── README.md                 # Project README file
+```
 * `main_script.py`: Contains the main function to run multiple instances of Selenium tests concurrently.
 * `random_number.py`: Provides a function to select a random number from a predefined list.
 * `wget_test.py`: Demonstrates downloading files using `wget` and measuring the time taken.

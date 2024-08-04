@@ -86,6 +86,5 @@ selenium-load-testing/
 
 
 
-## Contribution (Thank you!)
-Gavin and Ming under James, Jawad, and Susan's instruction.
-Special thanks to James, Jawad, and Susan.
+## Contribution
+Minglai Yang

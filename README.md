@@ -24,20 +24,12 @@ git clone https://gitlab.coretechs.com/blackstone/blackstone-load-testing-script
 cd blackstone-load-testing-script
 ```
 
-2. Create a virtual environment and activate it:
-
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-```
-
-3. Install the required packages:
+2. Install the required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
-
-4. Download the ChromeDriver and place it in a directory included in your system's PATH.
+3. Download the ChromeDriver and place it in a directory included in your system's PATH.
 
 
 ## Usage
@@ -94,5 +86,5 @@ The `BrowserAutomation` class in `browser_automation.py` provides functionality 
 
 
 ## Contribution (Thank you!)
-Ming and Gavin under James, Jawad and Susan's instruction.
-Special thanks to James and Jawad and Susan.
+Gavin and Ming under James, Jawad, and Susan's instruction.
+Special thanks to James, Jawad, and Susan.

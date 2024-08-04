@@ -1,4 +1,9 @@
-selenium==4.4.0
-pytest==7.1.2
-webdriver-manager==3.8.3
-numpy==1.26.4
+numpy
+matplotlib
+tqdm
+pyfiglet
+requests
+mplcursors
+progressbar
+selenium
+browser_automation

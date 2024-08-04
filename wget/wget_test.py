@@ -1,3 +1,17 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+import pyfiglet
+from datetime import datetime
+import time
+import os
+import requests
+import re
+
+
+import wget_plot
+import wget_valid_input
+
 """
 Webpage Loading Time Tester
 
@@ -59,20 +73,10 @@ Notes:
 """
 
 
-import time
-import os
-import numpy as np
-import matplotlib.pyplot as plt
-import requests
-from tqdm import tqdm
-
-import wget_valid_input
-import pyfiglet
-
 ascii_art = pyfiglet.figlet_format("Blackstone")
 print(ascii_art)
 
-time.sleep(3)
+time.sleep(1)
 
 def print_introduction():
     print("================================================================================")
@@ -92,17 +96,17 @@ print_introduction()
 
 
 
-# https://develop.blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2704
+# https://blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2873
 MeetingURL = wget_valid_input.get_meeting_url()
-print("Enter Meeting URL Successfully!!")
-DURATION_MINUTES = wget_valid_input.get_float_input("Please Enter the Duration Time (minutes): ")  # Duration in minutes for the script to run
-print("Enter Duration Time Successfully!!")
+print("\nEnter Meeting URL Successfully!!\n")
+DURATION_MINUTES = wget_valid_input.get_float_input("\nPlease Enter the Duration Time (minutes): ")  # Duration in minutes for the script to run
+print("\nEnter Duration Time Successfully!!\n")
 TIME_LINE = wget_valid_input.get_int_input("Please Tell Me Maximum Acceptable Response Time (seconds): ")
-print("Enter Maximum Acceptable Response Time Successfully!!")
+print("\nEnter Maximum Acceptable Response Time Successfully!!\n")
 PAUSE_TIME_NOT_EXCEED = wget_valid_input.get_int_input("Number of Seconds to Pause Each Request If It Does NOT EXCEED Maximum Acceptable Response Time  (seconds): ")
-print("Enter Acceptable Loading Page's Pausing Time Successfully!!")
+print("\nEnter Acceptable Loading Page's Pausing Time Successfully!!\n")
 PAUSE_TIME_EXCEED  = wget_valid_input.get_int_input("Number of Seconds to Pause Each Request If It EXCEED Maximum Acceptable Response Time (seconds): ")
-print("Enter Unacceptable Loading Page's Pausing Time Successfully!!")
+print("\nEnter Unacceptable Loading Page's Pausing Time Successfully!!\n")
 
 
 # Calculate the maximum length for the content lines
@@ -126,6 +130,14 @@ print("*" * box_width+"\n\n")
 
 
 def collect_load_times(MeetingURL, duration_minutes, recordfile):
+    """
+    Collects load times for a given URL over a specified duration and records them.
+
+    @param MeetingURL: The URL to be loaded.
+    @param duration_minutes: The total duration for collecting load times in minutes.
+    @param recordfile: The file to record the load times.
+    @return: A tuple of timestamps and load times.
+    """
     end_time = time.time() + duration_minutes * 60
     start_time = time.time()
     timestamps = []
@@ -200,6 +212,13 @@ def collect_load_times(MeetingURL, duration_minutes, recordfile):
     return timestamps, load_times
 
 def calculate_statistics(load_times, loading_time_line):
+    """
+    Calculates statistics from the collected load times.
+
+    @param load_times: A list of load times.
+    @param loading_time_line: The threshold for acceptable load times.
+    @return: A dictionary with statistical measures.
+    """
     stats = {}
     stats['count_exceeding'] = np.sum(np.array(load_times) > loading_time_line)
     stats['mean'] = np.mean(load_times)
@@ -209,37 +228,29 @@ def calculate_statistics(load_times, loading_time_line):
 
     return stats
 
-def plot_load_times(timestamps, load_times, stats):
-    print(
-        f"Counts of Exceeding Loading Time Line ({TIME_LINE} seconds): {stats['count_exceeding']}\n"
-        f"Mean of Loading Time: {stats['mean']}\n"
-        f"Median of Loading Time: {stats['median']}\n"
-        f"Max of Loading Time: {stats['max']}\n"
-        f"Min of Loading Time: {stats['min']}\n"
-        f"\n"
-        f"Please Look at Our Plots!! \n"
-        f"(And Close the Plot by red 'X') \n"
-    )
 
-    plt.figure(figsize=(10, 5))
-    plt.plot(timestamps, load_times, marker='o', linestyle='-')
-    plt.axhline(y=TIME_LINE, color='r', linestyle='--', label=f'Max Acceptable Time ({TIME_LINE}s)')
-    plt.xticks(rotation=45, ha='right')
-    plt.xlabel('Timestamp')
-    plt.ylabel('Loading Time (s)')
-    plt.title('Webpage Loading Times Over Multiple Requests. ')
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
+def generate_filename(url, minutes, file_type='txt'):
+    """
+    Generates a sanitized filename based on the URL and duration.
 
-    print(stats)
+    @param url: The URL to be used in the filename.
+    @param minutes: The duration in minutes to be included in the filename.
+    @param file_type: The file extension/type.
+    @return: A sanitized filename string.
+    """
+    # Sanitize the URL to remove or replace special characters
+    sanitized_url = re.sub(r'[^\w\s-]', '', url.replace('/', '_').replace(':', '_'))
+    return f"LoadTimes_{sanitized_url}_{minutes}min.{file_type}"
 
-def generate_filename(url, minutes):
-    # Extract a simple identifier from the URL (e.g., the meeting ID)
-    base_name = url.split('?')[-1]  # Assumes query string has relevant info
-    return f"LoadTimes_{base_name}_{minutes}min.txt"
 
 def print_loading_times(timestamps, load_times, filename):
+    """
+    Prints the loading times and the corresponding timestamps.
+
+    @param timestamps: A list of timestamps.
+    @param load_times: A list of load times.
+    @param filename: The name of the file where data is saved.
+    """
     print("")
     print("Timestamp and Loading Times:")
     print("------------Head-------------")
@@ -248,23 +259,36 @@ def print_loading_times(timestamps, load_times, filename):
         print(line, end='')
     print("-----------The End-----------")
     print("")
-    print("-------------------------------------------------------")
-    print(f"| Data saved to {filename} |")
-    print("-------------------------------------------------------")
+
+    # Print as a Regular Box
+    max_length = max(len(f"| Data saved to {filename} |"), len(f"| Data saved to {filename[:-4]}.png |"))
+
+    # Print the frame and messages
+    print("-" * (max_length + 2))
+    print(f"| Data saved to {filename}".ljust(max_length) + " |")
+    print(f"| Data saved to {filename[:-4]}.png".ljust(max_length) + " |")
+    print("-" * (max_length + 2))
 
 def main():
     filename = generate_filename(MeetingURL, DURATION_MINUTES)
     timestamps, load_times = collect_load_times(MeetingURL, DURATION_MINUTES, filename)
     if timestamps and load_times:
         stats = calculate_statistics(load_times, TIME_LINE)
-        plot_load_times(timestamps, load_times, stats)
+        wget_plot.plot_load_times(timestamps, load_times, stats, MeetingURL, DURATION_MINUTES, TIME_LINE=TIME_LINE,PAUSE_TIME_EXCEED=PAUSE_TIME_EXCEED,PAUSE_TIME_NOT_EXCEED=PAUSE_TIME_NOT_EXCEED)
         print_loading_times(timestamps, load_times, filename)
         print("")
         print("")
         print("Meeting URL Again for Checking!")
         print(MeetingURL)
         print("")
-        print("Thank you for using WGET testing product run by selenium.")
+        
+        response = input("Do you have the counts? If so, I can plot the counts for you. Please reply Yes/No: ")
+        if response.lower() == 'yes':
+            print("Running the program...\n")
+            wget_plot.plot_user_count(timestamps,load_times, MeetingURL, DURATION_MINUTES, TIME_LINE=TIME_LINE,PAUSE_TIME_EXCEED=PAUSE_TIME_EXCEED,PAUSE_TIME_NOT_EXCEED=PAUSE_TIME_NOT_EXCEED)
+        else:
+            print("Pass")
+        print("\nThank you for using WGET testing product run by selenium.")
         print("Have a great day!")
         print("")
 

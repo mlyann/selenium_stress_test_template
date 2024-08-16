@@ -1,9 +1,1 @@
-numpy
-matplotlib
-tqdm
-pyfiglet
-requests
-mplcursors
-progressbar
-selenium
-browser_automation
+selenium==4.22.0

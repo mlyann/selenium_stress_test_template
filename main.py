@@ -30,45 +30,46 @@ class TestTest2():
         if hasattr(self, 'driver') and self.driver:
             self.driver.quit()
     
-    def refresh_tabs(self, refresh_percent):
-        window_handles = self.driver.window_handles
-        num_tabs = len(window_handles)
-        tabs_to_refresh = int(num_tabs * (refresh_percent / 100))
+    # def refresh_tabs(self, refresh_percent):
+    #     window_handles = self.driver.window_handles
+    #     num_tabs = len(window_handles)
+    #     tabs_to_refresh = int(num_tabs * (refresh_percent / 100))
         
-        for idx, handle in enumerate(window_handles):
-            self.driver.switch_to.window(handle)
-            self.driver.refresh()
-            if idx + 1 >= tabs_to_refresh:
-                break
+    #     for idx, handle in enumerate(window_handles):
+    #         self.driver.switch_to.window(handle)
+    #         self.driver.refresh()
+    #         if idx + 1 >= tabs_to_refresh:
+    #             break
     
     def test_test2(self):
         try:
             self.start = time.time()
             print(f"Instance {self.instance_id} started at {format_timestamp(self.start)}")
-            
-            self.driver.get(self.MeetingURL)
-            time.sleep(10)
-            self.driver.set_window_size(1620, 1010)
-            time.sleep(5)
-            self.driver.find_element(By.ID, "btnToSignin").click()
-            time.sleep(5)
-            self.driver.find_element(By.ID, "select2-ddlUnit-container").click()
-            time.sleep(random.randint(10,15))
-            self.driver.find_element(By.CSS_SELECTOR, ".select2-search__field").send_keys(random_number.select_random_number())
-            time.sleep(random.randint(10,15))
-            self.driver.find_element(By.CSS_SELECTOR, ".select2-search__field").send_keys(Keys.ENTER)
-            time.sleep(random.randint(10,15))
-            self.driver.find_element(By.ID, "btnPE1").click()
-            time.sleep(random.randint(10,15))
-            self.driver.find_element(By.ID, "txtVerCode").click()
-            time.sleep(25)
-            self.driver.find_element(By.ID, "txtVerCode").send_keys("112233")
-            time.sleep(25)            
-            self.driver.find_element(By.ID, "btnP1").click()
-            time.sleep(25)
-            self.driver.find_element(By.CSS_SELECTOR, ".btn_SinedInNormal").click()
-            time.sleep(25)
-            
+            """
+            One Example using Selenium IDE in Chrome extensiion
+            # self.driver.get(self.MeetingURL)
+            # time.sleep(10)
+            # self.driver.set_window_size(1620, 1010)
+            # time.sleep(5)
+            # self.driver.find_element(By.ID, "btnToSignin").click()
+            # time.sleep(5)
+            # self.driver.find_element(By.ID, "select2-ddlUnit-container").click()
+            # time.sleep(random.randint(10,15))
+            # self.driver.find_element(By.CSS_SELECTOR, ".select2-search__field").send_keys(random_number.select_random_number())
+            # time.sleep(random.randint(10,15))
+            # self.driver.find_element(By.CSS_SELECTOR, ".select2-search__field").send_keys(Keys.ENTER)
+            # time.sleep(random.randint(10,15))
+            # self.driver.find_element(By.ID, "btnPE1").click()
+            # time.sleep(random.randint(10,15))
+            # self.driver.find_element(By.ID, "txtVerCode").click()
+            # time.sleep(25)
+            # self.driver.find_element(By.ID, "txtVerCode").send_keys("112233")
+            # time.sleep(25)            
+            # self.driver.find_element(By.ID, "btnP1").click()
+            # time.sleep(25)
+            # self.driver.find_element(By.CSS_SELECTOR, ".btn_SinedInNormal").click()
+            # time.sleep(25)
+            """
             # Mark success if reached this point
             self.success = True
             self.end = time.time()
@@ -96,6 +97,9 @@ def run_test(instance_num):
         print(f"Instance {instance_num + 1} finished.")
 
 def signal_handler(sig, frame):
+    """
+    Handle the chrome extension successfully open or not
+    """
     print("\nInterrupt received. Exiting...")
     results = []
     while not result_queue.empty():
@@ -107,7 +111,7 @@ def signal_handler(sig, frame):
         print(f"({instance_id} - {start}, {end} - {success})")
     sys.exit(0)
 
-def main(num_instances, interval=4):
+def main(num_instances, interval):
     signal.signal(signal.SIGINT, signal_handler)
     
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_instances) as executor:
@@ -140,5 +144,6 @@ def main(num_instances, interval=4):
 
 if __name__ == "__main__":
     num_instances = 30  # Number of instances to run concurrently
-    MeetingURL = "https://blackstoneamoffice.com/editors/Reports/MeetingStatusReport.aspx?meetingid=2873"
-    main(num_instances)
+    interval = 4        # Interval between each user 
+    MeetingURL = "TESTING URL"
+    main(num_instances, interval)
